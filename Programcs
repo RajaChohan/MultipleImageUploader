@@ -1,0 +1,59 @@
+Connection String
+
+  "ConnectionStrings": {
+    "ConnectionString": "Data Source=172.x.x.xxx;Initial Catalog=ReactHrmDb;Persist Security Info=True;User ID=xx;Password=xxxxx; MultipleActiveResultSets=True;Encrypt=false;TrustServerCertificate=true;"
+  },
+
+Program.cs
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddDbContext<Context>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
+
+builder.Services.AddCors();
+
+
+app.UseCors(builder =>
+{
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
+
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
+    RequestPath = "/uploads"
+});
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.AspNetCore.StaticFiles
+
+
+using Microsoft.EntityFrameworkCore;
+using ImageuploaderAPI.Model;
+using static System.Net.Mime.MediaTypeNames;
+
+
+
+npm install react-bootstrap bootstrap
+
+npm install axios react-dropzone
+
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
